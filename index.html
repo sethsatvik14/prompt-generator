@@ -528,36 +528,144 @@ async function generatePrompt() {
   document.getElementById('output-area').style.display = 'none';
   document.getElementById('gen-btn').disabled = true;
 
-  const systemPrompt = `You are an expert AI image prompt engineer for NanoBanana 2. Generate ONE complete image generation prompt. Follow ALL rules strictly:
+  const now = new Date();
+  const currentDate = now.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  }).toUpperCase();
 
-RULE 1 — VISUAL BACKGROUND (in English):
-Describe a cinematic, photorealistic background scene matching the content's theme. Include: scene, lighting, color palette, camera angle, lens, atmosphere, style. Decide everything yourself.
+  const systemPrompt = `You are an expert premium editorial visual prompt engineer.
 
-RULE 2 — FIXED LAYOUT STRUCTURE (always include exactly):
+Generate ONE high-quality image-generation prompt for a premium Indian commodity news graphic.
 
-TOP HEADER BAR:
+STRICT GOAL:
+This must look like a high-end financial news creative, NOT a boring text poster.
+
+--------------------------------------------------
+VISUAL QUALITY (IMPORTANT)
+--------------------------------------------------
+- cinematic, photorealistic background
+- strong depth (foreground + midground + background)
+- dramatic but elegant lighting (golden hour or newsroom tone)
+- realistic agriculture / industry / commodity environment
+- premium editorial composition
+- avoid flat or dull visuals
+- not overly text-heavy
+
+--------------------------------------------------
+TRUE BILINGUAL FORMAT (CRITICAL)
+--------------------------------------------------
+
+Do NOT mix Hindi and English in the same sentence.
+
+Do NOT make one section Hindi-only and another English-only.
+
+Every point MUST follow this pattern:
+
+Hindi line  
+English line  
+
+--------------------------------------------------
+CONTENT STRUCTURE (STRICT)
+--------------------------------------------------
+
+1. HINDI HEADLINE  
+2. ENGLISH HEADLINE  
+
+--------------------------------------------------
+
+मुख्य अपडेट / Key Update
+
+- Hindi point  
+- English point  
+
+- Hindi point  
+- English point  
+
+(2–4 pairs)
+
+--------------------------------------------------
+
+बाजार पर प्रभाव / Market Impact
+
+- Hindi impact line  
+- English impact line  
+
+- Hindi impact line  
+- English impact line  
+
+(2–4 pairs)
+
+Explain:
+- price direction
+- demand/supply
+- sentiment
+- farmer/trader impact
+- import/export effect
+
+--------------------------------------------------
+
+बाजार का रुख / Market Tone
+
+- Hindi line  
+- English line  
+
+Example:
+- बाजार का रुख: सतर्क मजबूती  
+- Market Tone: Supportive with caution  
+
+--------------------------------------------------
+LAYOUT
+--------------------------------------------------
+
+TOP HEADER:
 - ${logoPos}: ${logoDesc} logo of "${brandName}"
-- Top center: "${brandName}" in bold
-- Top right: today's date
+- center: "${brandName}"
+- right: "${currentDate}"
 
-MAIN CONTENT AREA (dark semi-transparent overlay panel):
-Structure the content precisely as follows:
-- Main Headline: Catchy and bold, mostly in Hindi.
-- Key Update / मुख्य अपडेट: Bullet points summarizing the facts. Keep it bilingual (Hindi + important English market/business words naturally).
-- Impact / आगे बाजार पर प्रभाव: Explain the likely market effect, price direction, demand/supply implication, and impact on traders/farmers/refiners.
-- Market Tone: A single brief line such as "Market Tone: Bullish" / "Supportive" / "Mixed" / "Pressure".
+MAIN PANEL:
+- glassmorphic / dark premium panel
+- clear spacing between sections
+- headline bold and highlighted
+- sections visually separated
+- not cluttered
 
-BOTTOM FOOTER STRIP (solid dark bar, one line):
-- Left: "Follow Us:" then icons for ${platforms} each labeled "${socialHandle}"
-- Right: "Call & Message: ${phone1} | ${phone2}"
-- Center or below: ${website}
+BOTTOM:
+- Follow Us + icons (${platforms}) ${socialHandle}
+- Call & Message: ${phone1} | ${phone2}
+- ${website}
 
-RULE 3 — DESIGN: ${extraNotes}. Format: ${imgStyle}.
+--------------------------------------------------
+DESIGN QUALITY
+--------------------------------------------------
 
-RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no quotes. Under 250 words.`;
+${extraNotes}
+Format: ${imgStyle}
+
+- clean hierarchy
+- premium typography
+- good spacing
+- not cramped
+- visually appealing
+
+--------------------------------------------------
+CONTENT INTELLIGENCE
+--------------------------------------------------
+
+Infer forward market impact intelligently like a commodity expert.
+
+--------------------------------------------------
+OUTPUT
+--------------------------------------------------
+
+Return ONLY final image prompt.
+No explanation.
+No quotes.
+Concise but powerful.`;
 
   try {
-    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + apiKey, {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -603,3 +711,4 @@ function copyPrompt() {
 </script>
 </body>
 </html>
+```
