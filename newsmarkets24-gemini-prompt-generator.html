@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewsMarkets24 — AI Image Prompt Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #13161b;
+    --surface2: #1c2028;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --orange: #f97316;
+    --orange-dim: rgba(249,115,22,0.12);
+    --text: #f0f2f5;
+    --text-sec: #8b92a0;
+    --text-dim: #4a5260;
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.1);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.1);
+    --red: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,12,15,0.9);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo {
+    width: 34px;
+    height: 34px;
+    background: var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+  }
+  .nav-name { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
+  .nav-name span { color: var(--orange); }
+  .nav-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--orange-dim);
+    color: var(--orange);
+    border: 1px solid rgba(249,115,22,0.2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  main {
+    flex: 1;
+    max-width: 820px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .page-title span { color: var(--orange); }
+  .page-sub { font-size: 14px; color: var(--text-sec); margin-bottom: 28px; line-height: 1.6; }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 7px;
+    cursor: pointer;
+    color: var(--text-sec);
+    border: none;
+    background: transparent;
+    transition: all 0.2s;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.3px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    background: var(--surface2);
+    color: var(--orange);
+    border: 1px solid var(--border2);
+  }
+
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-sec);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+    display: block;
+  }
+  .field { margin-bottom: 18px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+
+  textarea, input[type=text] {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
+    resize: vertical;
+    line-height: 1.7;
+    transition: border-color 0.2s;
+  }
+  textarea:focus, input[type=text]:focus {
+    outline: none;
+    border-color: var(--orange);
+    background: var(--surface2);
+  }
+  textarea::placeholder, input::placeholder { color: var(--text-dim); }
+
+  .btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--surface2);
+    color: var(--text);
+    transition: all 0.2s;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.3px;
+  }
+  .btn:hover { border-color: var(--orange); color: var(--orange); }
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+  }
+  .btn-primary:hover { background: #ea6c0a; color: white; border-color: #ea6c0a; }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-full { width: 100%; padding: 13px; font-size: 15px; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  .output-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .output-card.success { border-color: rgba(249,115,22,0.3); }
+  .output-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  #output-text {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
+  }
+  .output-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .copied-msg {
+    font-size: 12px;
+    color: var(--green);
+    display: none;
+  }
+
+  .status {
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status.loading { color: var(--blue); }
+  .status.done { color: var(--green); }
+  .status.err { color: var(--red); }
+  .spinner {
+    width: 13px; height: 13px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .steps { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+  .step { display: flex; gap: 12px; align-items: flex-start; }
+  .step-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--orange-dim);
+    border: 1px solid rgba(249,115,22,0.25);
+    font-size: 12px; font-weight: 700;
+    color: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-text { font-size: 14px; color: var(--text-sec); line-height: 1.6; padding-top: 3px; }
+  .step-text b { color: var(--text); font-weight: 600; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .save-ok {
+    font-size: 12px;
+    color: var(--green);
+    margin-top: 8px;
+    display: none;
+  }
+
+  .api-notice {
+    background: var(--blue-dim);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--text-sec);
+    line-height: 1.7;
+  }
+  .api-notice b { color: var(--text); }
+  .api-notice a { color: var(--blue); }
+
+  @media (max-width: 540px) {
+    .row2 { grid-template-columns: 1fr; }
+    nav { padding: 12px 16px; }
+    main { padding: 20px 14px 50px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">NM</div>
+    <span class="nav-name">News<span>Markets24</span></span>
+  </div>
+  <span class="nav-badge">AI Prompt Tool</span>
+</nav>
+
+<main>
+  <h1 class="page-title">Image <span>Prompt</span> Generator</h1>
+  <p class="page-sub">Raw content paste karo — AI visual + content dono ke saath NanoBanana 2 ke liye perfect prompt banayega</p>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-gen" onclick="switchTab('gen')">Generate</button>
+    <button class="tab" id="tab-brand" onclick="switchTab('brand')">Brand Settings</button>
+    <button class="tab" id="tab-api" onclick="switchTab('api')">API Key</button>
+  </div>
+
+  <div id="panel-gen">
+    <div class="field">
+      <span class="label">Raw Content Yahan Paste Karo</span>
+      <textarea id="raw-input" rows="9" placeholder="Koi bhi content paste karo — news, idea, caption, story — Hindi ya English ya mixed...&#10;&#10;Jaise: अर्जेंटीना ने एथेनॉल ब्लेंडिंग 15% और बायोडीजल 20% tak badhai..."></textarea>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="generatePrompt()" id="gen-btn">⚡ Generate Prompt</button>
+    <div class="status" id="gen-status"></div>
+
+    <div id="output-area" style="display:none">
+      <div class="output-card success">
+        <div class="output-label">Generated Prompt — NanoBanana 2 ke liye ready</div>
+        <div id="output-text"></div>
+        <div class="output-actions">
+          <button class="btn btn-primary btn-sm" onclick="copyPrompt()">Copy Prompt</button>
+          <button class="btn btn-sm" onclick="generatePrompt()">Regenerate</button>
+          <span class="copied-msg" id="copied-msg">✓ Copied!</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">API Key tab mein apni <b>Google Gemini API Key</b> save karo (sirf ek baar)</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Brand Settings mein apna <b>logo, social handles, numbers</b> set karo</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Raw content paste karo — <b>visual English mein</b> + <b>text original language mein</b> milega</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Prompt copy karo aur <b>NanoBanana 2</b> mein paste karo</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-brand" style="display:none">
+    <div class="section-title">Header — Top Bar</div>
+    <div class="field">
+      <span class="label">Brand / Channel Name</span>
+      <input type="text" id="brand-name" value="NewsMarkets24 Network" />
+    </div>
+    <div class="row2">
+      <div>
+        <span class="label">Logo Position</span>
+        <input type="text" id="logo-pos" value="top-left corner" />
+      </div>
+      <div>
+        <span class="label">Logo Description</span>
+        <input type="text" id="logo-desc" value="globe with arrow icon, circular" />
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-title">Footer Strip — Bottom Bar</div>
+
+    <div class="field">
+      <span class="label">Social Media Handle</span>
+      <input type="text" id="social-handle" value="@NewsMarkets24" />
+    </div>
+    <div class="field">
+      <span class="label">Social Platforms</span>
+      <input type="text" id="social-platforms" value="Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X" />
+    </div>
+    <div class="row2">
+      <div>
+        <span class="label">Contact Number 1</span>
+        <input type="text" id="phone1" value="8604981117" />
+      </div>
+      <div>
+        <span class="label">Contact Number 2</span>
+        <input type="text" id="phone2" value="9125956465" />
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Website</span>
+      <input type="text" id="website" value="www.newsmarkets24.com" />
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-title">Design Settings</div>
+    <div class="field">
+      <span class="label">Image Format / Platform</span>
+      <input type="text" id="img-style" value="1:1 square Instagram post, professional news broadcast aesthetic" />
+    </div>
+    <div class="field">
+      <span class="label">Extra Fixed Instructions</span>
+      <textarea id="extra-notes" rows="3">dark semi-transparent overlay panel for text, bold orange headlines, white body text, cinematic photorealistic background</textarea>
+    </div>
+
+    <button class="btn btn-primary btn-full" onclick="saveBrand()">Save Brand Settings</button>
+    <div class="save-ok" id="save-ok">✓ Brand settings saved!</div>
+  </div>
+
+  <div id="panel-api" style="display:none">
+    <div class="api-notice">
+      <b>Google Gemini API Key kahan se milegi?</b><br>
+      <a href="https://aistudio.google.com" target="_blank">Google AI Studio (aistudio.google.com)</a> pe jaao → API Keys → Create Key → yahan paste karo.<br><br>
+      <b>Note:</b> Key sirf aapke browser mein save hogi, kahi server pe nahi jaayegi.
+    </div>
+    <div class="field">
+      <span class="label">Google Gemini API Key</span>
+      <input type="text" id="api-key-input" placeholder="AIzaSy..." />
+    </div>
+    <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save API Key</button>
+    <div class="save-ok" id="api-save-ok">✓ API Key saved!</div>
+  </div>
+</main>
+
+<script>
+window.onload = function() {
+  const saved = JSON.parse(localStorage.getItem('nm24_brand') || '{}');
+  if (saved.brandName) document.getElementById('brand-name').value = saved.brandName;
+  if (saved.logoPos) document.getElementById('logo-pos').value = saved.logoPos;
+  if (saved.logoDesc) document.getElementById('logo-desc').value = saved.logoDesc;
+  if (saved.socialHandle) document.getElementById('social-handle').value = saved.socialHandle;
+  if (saved.platforms) document.getElementById('social-platforms').value = saved.platforms;
+  if (saved.phone1) document.getElementById('phone1').value = saved.phone1;
+  if (saved.phone2) document.getElementById('phone2').value = saved.phone2;
+  if (saved.website) document.getElementById('website').value = saved.website;
+  if (saved.imgStyle) document.getElementById('img-style').value = saved.imgStyle;
+  if (saved.extraNotes) document.getElementById('extra-notes').value = saved.extraNotes;
+
+  const savedKey = localStorage.getItem('nm24_apikey') || '';
+  if (savedKey) document.getElementById('api-key-input').value = savedKey;
+};
+
+function switchTab(t) {
+  ['gen','brand','api'].forEach(p => {
+    document.getElementById('panel-' + p).style.display = p === t ? 'block' : 'none';
+    document.getElementById('tab-' + p).classList.toggle('active', p === t);
+  });
+}
+
+function saveBrand() {
+  const data = {
+    brandName: document.getElementById('brand-name').value.trim(),
+    logoPos: document.getElementById('logo-pos').value.trim(),
+    logoDesc: document.getElementById('logo-desc').value.trim(),
+    socialHandle: document.getElementById('social-handle').value.trim(),
+    platforms: document.getElementById('social-platforms').value.trim(),
+    phone1: document.getElementById('phone1').value.trim(),
+    phone2: document.getElementById('phone2').value.trim(),
+    website: document.getElementById('website').value.trim(),
+    imgStyle: document.getElementById('img-style').value.trim(),
+    extraNotes: document.getElementById('extra-notes').value.trim()
+  };
+  localStorage.setItem('nm24_brand', JSON.stringify(data));
+  const ok = document.getElementById('save-ok');
+  ok.style.display = 'block';
+  setTimeout(() => ok.style.display = 'none', 2500);
+}
+
+function saveApiKey() {
+  const key = document.getElementById('api-key-input').value.trim();
+  localStorage.setItem('nm24_apikey', key);
+  const ok = document.getElementById('api-save-ok');
+  ok.style.display = 'block';
+  setTimeout(() => ok.style.display = 'none', 2500);
+}
+
+function getBrand() {
+  return JSON.parse(localStorage.getItem('nm24_brand') || '{}');
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('gen-status');
+  el.className = 'status ' + type;
+  el.innerHTML = type === 'loading'
+    ? '<div class="spinner"></div>' + msg
+    : msg;
+}
+
+async function generatePrompt() {
+  const raw = document.getElementById('raw-input').value.trim();
+  if (!raw) { setStatus('Pehle content paste karo!', 'err'); return; }
+
+  const apiKey = localStorage.getItem('nm24_apikey') || '';
+  if (!apiKey) { setStatus('Pehle API Key save karo (API Key tab mein)!', 'err'); return; }
+
+  const b = getBrand();
+  const brandName = b.brandName || 'NewsMarkets24 Network';
+  const logoPos = b.logoPos || 'top-left corner';
+  const logoDesc = b.logoDesc || 'globe with arrow icon';
+  const socialHandle = b.socialHandle || '@NewsMarkets24';
+  const platforms = b.platforms || 'Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X';
+  const phone1 = b.phone1 || '8604981117';
+  const phone2 = b.phone2 || '9125956465';
+  const website = b.website || 'www.newsmarkets24.com';
+  const imgStyle = b.imgStyle || '1:1 square Instagram post';
+  const extraNotes = b.extraNotes || 'dark semi-transparent overlay, bold orange headlines, white body text';
+
+  setStatus('AI prompt bana raha hai...', 'loading');
+  document.getElementById('output-area').style.display = 'none';
+  document.getElementById('gen-btn').disabled = true;
+
+  const systemPrompt = `You are an expert AI image prompt engineer for NanoBanana 2. Generate ONE complete image generation prompt. Follow ALL rules strictly:
+
+RULE 1 — VISUAL BACKGROUND (in English):
+Describe a cinematic, photorealistic background scene matching the content's theme. Include: scene, lighting, color palette, camera angle, lens, atmosphere, style. Decide everything yourself.
+
+RULE 2 — FIXED LAYOUT STRUCTURE (always include exactly):
+
+TOP HEADER BAR:
+- ${logoPos}: ${logoDesc} logo of "${brandName}"
+- Top center: "${brandName}" in bold
+- Top right: today's date
+
+MAIN CONTENT AREA (dark semi-transparent overlay panel):
+- Extract key information from raw content
+- Keep text in SAME LANGUAGE as raw content (Hindi stays Hindi, do NOT translate)
+- Format: bold headline, bullet points with key facts/numbers
+
+BOTTOM FOOTER STRIP (solid dark bar, one line):
+- Left: "Follow Us:" then icons for ${platforms} each labeled "${socialHandle}"
+- Right: "Call & Message: ${phone1} | ${phone2}"
+- Center or below: ${website}
+
+RULE 3 — DESIGN: ${extraNotes}. Format: ${imgStyle}.
+
+RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no quotes. Under 220 words.`;
+
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              { text: systemPrompt + "\n\n" + raw }
+            ]
+          }
+        ]
+      })
+    });
+
+    if (!res.ok) {
+      let errMsg = 'API error ' + res.status;
+      try {
+        const err = await res.json();
+        errMsg = err.error?.message || errMsg;
+      } catch (_) {}
+      throw new Error(errMsg);
+    }
+
+    const data = await res.json();
+    const result = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    if (!result) throw new Error('Empty response');
+
+    document.getElementById('output-text').textContent = result;
+    document.getElementById('output-area').style.display = 'block';
+    setStatus('✓ Prompt ready hai! Copy karo aur NanoBanana 2 mein paste karo.', 'done');
+  } catch(e) {
+    setStatus('Error: ' + e.message, 'err');
+  } finally {
+    document.getElementById('gen-btn').disabled = false;
+  }
+}
+
+function copyPrompt() {
+  const text = document.getElementById('output-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const msg = document.getElementById('copied-msg');
+    msg.style.display = 'inline';
+    setTimeout(() => msg.style.display = 'none', 2500);
+  });
+}
+</script>
+</body>
+</html>
