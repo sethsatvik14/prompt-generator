@@ -33,6 +33,7 @@
     flex-direction: column;
   }
 
+  /* TOP NAV */
   nav {
     display: flex;
     align-items: center;
@@ -76,6 +77,7 @@
     letter-spacing: 0.5px;
   }
 
+  /* MAIN LAYOUT */
   main {
     flex: 1;
     max-width: 820px;
@@ -93,6 +95,7 @@
   .page-title span { color: var(--orange); }
   .page-sub { font-size: 14px; color: var(--text-sec); margin-bottom: 28px; line-height: 1.6; }
 
+  /* TABS */
   .tabs {
     display: flex;
     gap: 4px;
@@ -123,6 +126,7 @@
     border: 1px solid var(--border2);
   }
 
+  /* LABELS & FIELDS */
   .label {
     font-size: 11px;
     font-weight: 700;
@@ -155,6 +159,7 @@
   }
   textarea::placeholder, input::placeholder { color: var(--text-dim); }
 
+  /* BUTTONS */
   .btn {
     padding: 10px 18px;
     border-radius: 8px;
@@ -180,6 +185,7 @@
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
+  /* OUTPUT */
   .output-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -218,6 +224,7 @@
     display: none;
   }
 
+  /* STATUS */
   .status {
     font-size: 13px;
     margin-top: 10px;
@@ -239,6 +246,7 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* INFO STEPS */
   .steps { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
   .step { display: flex; gap: 12px; align-items: flex-start; }
   .step-num {
@@ -254,6 +262,7 @@
   .step-text { font-size: 14px; color: var(--text-sec); line-height: 1.6; padding-top: 3px; }
   .step-text b { color: var(--text); font-weight: 600; }
 
+  /* BRAND SETTINGS */
   .section-title {
     font-size: 13px;
     font-weight: 700;
@@ -271,6 +280,7 @@
     display: none;
   }
 
+  /* API KEY SECTION */
   .api-notice {
     background: var(--blue-dim);
     border: 1px solid rgba(59,130,246,0.2);
@@ -284,6 +294,7 @@
   .api-notice b { color: var(--text); }
   .api-notice a { color: var(--blue); }
 
+  /* MOBILE */
   @media (max-width: 540px) {
     .row2 { grid-template-columns: 1fr; }
     nav { padding: 12px 16px; }
@@ -311,10 +322,11 @@
     <button class="tab" id="tab-api" onclick="switchTab('api')">API Key</button>
   </div>
 
+  <!-- GENERATE PANEL -->
   <div id="panel-gen">
     <div class="field">
       <span class="label">Raw Content Yahan Paste Karo</span>
-      <textarea id="raw-input" rows="9" placeholder="Koi bhi content paste karo — news, idea, caption, story — Hindi ya English ya mixed...&#10;&#10;Jaise: अर्जेंटीना ने एथेनॉल ब्लेंडिंग 15% और बायोडीजल 20% tak badhai..."></textarea>
+      <textarea id="raw-input" rows="9" placeholder="Koi bhi content paste karo — news, idea, caption, story — Hindi ya English ya mixed...&#10;&#10;Jaise: अर्जेंटीना ने एथेनॉल ब्लेंडिंग 15% और बायोडीजल 20% तक बढ़ाई..."></textarea>
     </div>
     <button class="btn btn-primary btn-full" onclick="generatePrompt()" id="gen-btn">⚡ Generate Prompt</button>
     <div class="status" id="gen-status"></div>
@@ -351,7 +363,9 @@
     </div>
   </div>
 
+  <!-- BRAND SETTINGS PANEL -->
   <div id="panel-brand" style="display:none">
+
     <div class="section-title">Header — Top Bar</div>
     <div class="field">
       <span class="label">Brand / Channel Name</span>
@@ -409,6 +423,7 @@
     <div class="save-ok" id="save-ok">✓ Brand settings saved!</div>
   </div>
 
+  <!-- API KEY PANEL -->
   <div id="panel-api" style="display:none">
     <div class="api-notice">
       <b>Google Gemini API Key kahan se milegi?</b><br>
@@ -422,9 +437,11 @@
     <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save API Key</button>
     <div class="save-ok" id="api-save-ok">✓ API Key saved!</div>
   </div>
+
 </main>
 
 <script>
+// Load saved settings
 window.onload = function() {
   const saved = JSON.parse(localStorage.getItem('nm24_brand') || '{}');
   if (saved.brandName) document.getElementById('brand-name').value = saved.brandName;
@@ -524,9 +541,11 @@ TOP HEADER BAR:
 - Top right: today's date
 
 MAIN CONTENT AREA (dark semi-transparent overlay panel):
-- Extract key information from raw content
-- Keep text in SAME LANGUAGE as raw content (Hindi stays Hindi, do NOT translate)
-- Format: bold headline, bullet points with key facts/numbers
+Structure the content precisely as follows:
+- Main Headline: Catchy and bold, mostly in Hindi.
+- Key Update / मुख्य अपडेट: Bullet points summarizing the facts. Keep it bilingual (Hindi + important English market/business words naturally).
+- Impact / आगे बाजार पर प्रभाव: Explain the likely market effect, price direction, demand/supply implication, and impact on traders/farmers/refiners.
+- Market Tone: A single brief line such as "Market Tone: Bullish" / "Supportive" / "Mixed" / "Pressure".
 
 BOTTOM FOOTER STRIP (solid dark bar, one line):
 - Left: "Follow Us:" then icons for ${platforms} each labeled "${socialHandle}"
@@ -535,7 +554,7 @@ BOTTOM FOOTER STRIP (solid dark bar, one line):
 
 RULE 3 — DESIGN: ${extraNotes}. Format: ${imgStyle}.
 
-RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no quotes. Under 220 words.`;
+RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no quotes. Under 250 words.`;
 
   try {
     const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + apiKey, {
@@ -555,12 +574,8 @@ RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no qu
     });
 
     if (!res.ok) {
-      let errMsg = 'API error ' + res.status;
-      try {
-        const err = await res.json();
-        errMsg = err.error?.message || errMsg;
-      } catch (_) {}
-      throw new Error(errMsg);
+      const err = await res.json();
+      throw new Error(err.error?.message || 'API error ' + res.status);
     }
 
     const data = await res.json();
