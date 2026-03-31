@@ -33,272 +33,134 @@
     flex-direction: column;
   }
 
-  /* TOP NAV */
   nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 28px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(10,12,15,0.9);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px; border-bottom: 1px solid var(--border);
+    background: rgba(10,12,15,0.9); backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
   }
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
   .nav-logo {
-    width: 34px;
-    height: 34px;
-    background: var(--orange);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 700;
-    color: white;
-    letter-spacing: -1px;
+    width: 34px; height: 34px; background: var(--orange);
+    border-radius: 8px; display: flex; align-items: center;
+    justify-content: center; font-size: 16px; font-weight: 700;
+    color: white; letter-spacing: -1px;
   }
   .nav-name { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
   .nav-name span { color: var(--orange); }
   .nav-badge {
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: var(--orange-dim);
-    color: var(--orange);
-    border: 1px solid rgba(249,115,22,0.2);
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-size: 11px; padding: 3px 10px; border-radius: 20px;
+    background: var(--orange-dim); color: var(--orange);
+    border: 1px solid rgba(249,115,22,0.2); font-weight: 600;
   }
 
-  /* MAIN LAYOUT */
-  main {
-    flex: 1;
-    max-width: 820px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 28px 20px 60px;
-  }
+  main { flex: 1; max-width: 820px; width: 100%; margin: 0 auto; padding: 28px 20px 60px; }
 
-  .page-title {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
+  .page-title { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
   .page-title span { color: var(--orange); }
-  .page-sub { font-size: 14px; color: var(--text-sec); margin-bottom: 28px; line-height: 1.6; }
+  .page-sub { font-size: 14px; color: var(--text-sec); margin-bottom: 28px; }
 
-  /* TABS */
   .tabs {
-    display: flex;
-    gap: 4px;
-    background: var(--surface);
-    border-radius: 10px;
-    padding: 4px;
-    margin-bottom: 24px;
+    display: flex; gap: 4px; background: var(--surface);
+    border-radius: 10px; padding: 4px; margin-bottom: 24px;
     border: 1px solid var(--border);
   }
   .tab {
-    flex: 1;
-    padding: 9px 12px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 7px;
-    cursor: pointer;
-    color: var(--text-sec);
-    border: none;
-    background: transparent;
-    transition: all 0.2s;
+    flex: 1; padding: 9px 12px; font-size: 14px; font-weight: 600;
+    border-radius: 7px; cursor: pointer; color: var(--text-sec);
+    border: none; background: transparent; transition: all 0.2s;
     font-family: 'Rajdhani', sans-serif;
-    letter-spacing: 0.3px;
   }
   .tab:hover { color: var(--text); }
-  .tab.active {
-    background: var(--surface2);
-    color: var(--orange);
-    border: 1px solid var(--border2);
-  }
+  .tab.active { background: var(--surface2); color: var(--orange); border: 1px solid var(--border2); }
 
-  /* LABELS & FIELDS */
   .label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-sec);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 7px;
-    display: block;
+    font-size: 11px; font-weight: 700; color: var(--text-sec);
+    text-transform: uppercase; margin-bottom: 7px; display: block;
   }
   .field { margin-bottom: 18px; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
 
   textarea, input[type=text] {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    font-size: 14px;
-    color: var(--text);
-    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
-    resize: vertical;
-    line-height: 1.7;
-    transition: border-color 0.2s;
+    width: 100%; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--text);
+    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif; resize: vertical;
   }
-  textarea:focus, input[type=text]:focus {
-    outline: none;
-    border-color: var(--orange);
-    background: var(--surface2);
+  textarea:focus, input[type=text]:focus { outline: none; border-color: var(--orange); background: var(--surface2); }
+  
+  input[type=file] {
+    width: 100%; background: var(--surface); border: 1px dashed var(--border);
+    border-radius: 8px; font-size: 13px; color: var(--text-sec); cursor: pointer;
   }
-  textarea::placeholder, input::placeholder { color: var(--text-dim); }
+  input[type=file]::file-selector-button {
+    background: var(--surface2); border: 1px solid var(--border2); color: var(--text);
+    padding: 6px 12px; border-radius: 6px; margin-right: 10px; cursor: pointer;
+    font-family: inherit; font-weight: 600; transition: all 0.2s;
+  }
+  input[type=file]::file-selector-button:hover { border-color: var(--orange); color: var(--orange); }
 
-  /* BUTTONS */
   .btn {
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    border: 1px solid var(--border2);
-    background: var(--surface2);
-    color: var(--text);
-    transition: all 0.2s;
-    font-family: 'Rajdhani', sans-serif;
-    letter-spacing: 0.3px;
+    padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 700;
+    cursor: pointer; border: 1px solid var(--border2); background: var(--surface2);
+    color: var(--text); transition: all 0.2s; font-family: 'Rajdhani', sans-serif;
   }
   .btn:hover { border-color: var(--orange); color: var(--orange); }
-  .btn-primary {
-    background: var(--orange);
-    color: white;
-    border-color: var(--orange);
-  }
-  .btn-primary:hover { background: #ea6c0a; color: white; border-color: #ea6c0a; }
+  .btn-primary { background: var(--orange); color: white; border-color: var(--orange); }
+  .btn-primary:hover { background: #ea6c0a; border-color: #ea6c0a; }
   .btn-sm { padding: 6px 12px; font-size: 12px; }
   .btn-full { width: 100%; padding: 13px; font-size: 15px; }
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
-  /* OUTPUT */
   .output-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    margin-top: 20px;
-    position: relative;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-top: 20px;
   }
   .output-card.success { border-color: rgba(249,115,22,0.3); }
   .output-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--orange);
-    margin-bottom: 10px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 10px;
   }
   #output-text {
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--text);
-    white-space: pre-wrap;
-    word-break: break-word;
-    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
+    font-size: 14px; line-height: 1.85; color: var(--text);
+    white-space: pre-wrap; word-break: break-word; font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
   }
-  .output-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 14px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .copied-msg {
-    font-size: 12px;
-    color: var(--green);
-    display: none;
-  }
+  .output-actions { display: flex; gap: 8px; margin-top: 14px; align-items: center; }
+  .copied-msg { font-size: 12px; color: var(--green); display: none; }
 
-  /* STATUS */
-  .status {
-    font-size: 13px;
-    margin-top: 10px;
-    min-height: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .status.loading { color: var(--blue); }
-  .status.done { color: var(--green); }
-  .status.err { color: var(--red); }
+  .status { font-size: 13px; margin-top: 10px; min-height: 20px; display: flex; align-items: center; gap: 8px; }
+  .status.loading { color: var(--blue); } .status.done { color: var(--green); } .status.err { color: var(--red); }
   .spinner {
-    width: 13px; height: 13px;
-    border: 2px solid var(--border2);
-    border-top-color: var(--blue);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    flex-shrink: 0;
+    width: 13px; height: 13px; border: 2px solid var(--border2); border-top-color: var(--blue);
+    border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* INFO STEPS */
   .steps { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
   .step { display: flex; gap: 12px; align-items: flex-start; }
   .step-num {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--orange-dim);
-    border: 1px solid rgba(249,115,22,0.25);
-    font-size: 12px; font-weight: 700;
-    color: var(--orange);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 50%; background: var(--orange-dim);
+    border: 1px solid rgba(249,115,22,0.25); font-size: 12px; font-weight: 700;
+    color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .step-text { font-size: 14px; color: var(--text-sec); line-height: 1.6; padding-top: 3px; }
   .step-text b { color: var(--text); font-weight: 600; }
 
-  /* BRAND SETTINGS */
   .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--orange);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
+    font-size: 13px; font-weight: 700; color: var(--orange); text-transform: uppercase;
+    margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
   }
-  .save-ok {
-    font-size: 12px;
-    color: var(--green);
-    margin-top: 8px;
-    display: none;
-  }
+  .save-ok { font-size: 12px; color: var(--green); margin-top: 8px; display: none; }
 
-  /* API KEY SECTION */
   .api-notice {
-    background: var(--blue-dim);
-    border: 1px solid rgba(59,130,246,0.2);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: var(--text-sec);
-    line-height: 1.7;
+    background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; font-size: 13px; color: var(--text-sec);
   }
-  .api-notice b { color: var(--text); }
-  .api-notice a { color: var(--blue); }
+  .api-notice b { color: var(--text); } .api-notice a { color: var(--blue); }
 
-  /* MOBILE */
   @media (max-width: 540px) {
     .row2 { grid-template-columns: 1fr; }
-    nav { padding: 12px 16px; }
-    main { padding: 20px 14px 50px; }
+    nav { padding: 12px 16px; } main { padding: 20px 14px 50px; }
   }
 </style>
 </head>
@@ -322,18 +184,17 @@
     <button class="tab" id="tab-api" onclick="switchTab('api')">API Key</button>
   </div>
 
-  <!-- GENERATE PANEL -->
   <div id="panel-gen">
     <div class="field">
       <span class="label">Raw Content Yahan Paste Karo</span>
-      <textarea id="raw-input" rows="9" placeholder="Koi bhi content paste karo — news, idea, caption, story — Hindi ya English ya mixed...&#10;&#10;Jaise: अर्जेंटीना ने एथेनॉल ब्लेंडिंग 15% और बायोडीजल 20% तक बढ़ाई..."></textarea>
+      <textarea id="raw-input" rows="9" placeholder="Koi bhi content paste karo..."></textarea>
     </div>
     <button class="btn btn-primary btn-full" onclick="generatePrompt()" id="gen-btn">⚡ Generate Prompt</button>
     <div class="status" id="gen-status"></div>
 
     <div id="output-area" style="display:none">
       <div class="output-card success">
-        <div class="output-label">Generated Prompt — NanoBanana 2 ke liye ready</div>
+        <div class="output-label">Generated Prompt</div>
         <div id="output-text"></div>
         <div class="output-actions">
           <button class="btn btn-primary btn-sm" onclick="copyPrompt()">Copy Prompt</button>
@@ -344,40 +205,44 @@
     </div>
 
     <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">API Key tab mein apni <b>Google Gemini API Key</b> save karo (sirf ek baar)</div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">Brand Settings mein apna <b>logo, social handles, numbers</b> set karo</div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">Raw content paste karo — <b>visual English mein</b> + <b>text original language mein</b> milega</div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-text">Prompt copy karo aur <b>NanoBanana 2</b> mein paste karo</div>
-      </div>
+      <div class="step"><div class="step-num">1</div><div class="step-text">API Key tab mein apni <b>Google Gemini API Key</b> save karo (sirf ek baar)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Brand Settings mein apna <b>logo, handles, numbers</b> set karo</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Raw content paste karo</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Prompt copy karo aur <b>NanoBanana 2</b> mein paste karo</div></div>
     </div>
   </div>
 
-  <!-- BRAND SETTINGS PANEL -->
   <div id="panel-brand" style="display:none">
-
     <div class="section-title">Header — Top Bar</div>
     <div class="field">
       <span class="label">Brand / Channel Name</span>
       <input type="text" id="brand-name" value="NewsMarkets24 Network" />
     </div>
+
     <div class="row2">
       <div>
-        <span class="label">Logo Position</span>
+        <span class="label">Upload Logo (PNG/JPG/WebP)</span>
+        <input type="file" id="logo-upload" accept="image/png, image/jpeg, image/webp" onchange="handleLogoUpload(event)" style="padding: 9px;" />
+      </div>
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="label">Logo Preview</span>
+          <button onclick="clearLogo()" style="background:none; border:none; color:var(--text-sec); font-size:11px; cursor:pointer; font-weight:700; display:none;" id="logo-clear-btn">CLEAR</button>
+        </div>
+        <div id="logo-preview-container" style="width: 100%; height: 44px; border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--surface2); overflow: hidden;">
+          <span style="font-size: 11px; color: var(--text-dim);" id="logo-preview-text">No Logo</span>
+          <img id="logo-preview-img" style="display: none; max-height: 100%; max-width: 100%; object-fit: contain;" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div>
+        <span class="label">Logo Position (Text Fallback)</span>
         <input type="text" id="logo-pos" value="top-left corner" />
       </div>
       <div>
-        <span class="label">Logo Description</span>
+        <span class="label">Logo Description (Text Fallback)</span>
         <input type="text" id="logo-desc" value="globe with arrow icon, circular" />
       </div>
     </div>
@@ -391,39 +256,29 @@
     </div>
     <div class="field">
       <span class="label">Social Platforms</span>
-      <input type="text" id="social-platforms" value="Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X" />
+      <input type="text" id="social-platforms" value="Facebook, Instagram, YouTube" />
     </div>
     <div class="row2">
-      <div>
-        <span class="label">Contact Number 1</span>
-        <input type="text" id="phone1" value="8604981117" />
-      </div>
-      <div>
-        <span class="label">Contact Number 2</span>
-        <input type="text" id="phone2" value="9125956465" />
-      </div>
+      <div><span class="label">Contact Number 1</span><input type="text" id="phone1" value="8604981117" /></div>
+      <div><span class="label">Contact Number 2</span><input type="text" id="phone2" value="9125956465" /></div>
     </div>
-    <div class="field">
-      <span class="label">Website</span>
-      <input type="text" id="website" value="www.newsmarkets24.com" />
-    </div>
+    <div class="field"><span class="label">Website</span><input type="text" id="website" value="www.newsmarkets24.com" /></div>
 
     <div class="divider"></div>
     <div class="section-title">Design Settings</div>
     <div class="field">
       <span class="label">Image Format / Platform</span>
-      <input type="text" id="img-style" value="1:1 square Instagram post, professional news broadcast aesthetic" />
+      <input type="text" id="img-style" value="1:1 square Instagram post" />
     </div>
     <div class="field">
       <span class="label">Extra Fixed Instructions</span>
-      <textarea id="extra-notes" rows="3">dark semi-transparent overlay panel for text, bold orange headlines, white body text, cinematic photorealistic background</textarea>
+      <textarea id="extra-notes" rows="3">cinematic photorealistic background</textarea>
     </div>
 
     <button class="btn btn-primary btn-full" onclick="saveBrand()">Save Brand Settings</button>
     <div class="save-ok" id="save-ok">✓ Brand settings saved!</div>
   </div>
 
-  <!-- API KEY PANEL -->
   <div id="panel-api" style="display:none">
     <div class="api-notice">
       <b>Google Gemini API Key kahan se milegi?</b><br>
@@ -437,11 +292,9 @@
     <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save API Key</button>
     <div class="save-ok" id="api-save-ok">✓ API Key saved!</div>
   </div>
-
 </main>
 
 <script>
-// Load saved settings
 window.onload = function() {
   const saved = JSON.parse(localStorage.getItem('nm24_brand') || '{}');
   if (saved.brandName) document.getElementById('brand-name').value = saved.brandName;
@@ -455,6 +308,12 @@ window.onload = function() {
   if (saved.imgStyle) document.getElementById('img-style').value = saved.imgStyle;
   if (saved.extraNotes) document.getElementById('extra-notes').value = saved.extraNotes;
 
+  if (saved.customLogo) {
+    document.getElementById('logo-preview-img').src = saved.customLogo;
+    document.getElementById('logo-preview-img').style.display = 'block';
+    document.getElementById('logo-preview-text').style.display = 'none';
+    document.getElementById('logo-clear-btn').style.display = 'inline-block';
+  }
   const savedKey = localStorage.getItem('nm24_apikey') || '';
   if (savedKey) document.getElementById('api-key-input').value = savedKey;
 };
@@ -466,11 +325,36 @@ function switchTab(t) {
   });
 }
 
+function handleLogoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64 = e.target.result;
+    document.getElementById('logo-preview-img').src = base64;
+    document.getElementById('logo-preview-img').style.display = 'block';
+    document.getElementById('logo-preview-text').style.display = 'none';
+    document.getElementById('logo-clear-btn').style.display = 'inline-block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearLogo() {
+  document.getElementById('logo-upload').value = '';
+  document.getElementById('logo-preview-img').src = '';
+  document.getElementById('logo-preview-img').style.display = 'none';
+  document.getElementById('logo-preview-text').style.display = 'block';
+  document.getElementById('logo-clear-btn').style.display = 'none';
+}
+
 function saveBrand() {
+  const imgEl = document.getElementById('logo-preview-img');
+  const customLogo = imgEl.style.display === 'block' ? imgEl.src : '';
   const data = {
     brandName: document.getElementById('brand-name').value.trim(),
     logoPos: document.getElementById('logo-pos').value.trim(),
     logoDesc: document.getElementById('logo-desc').value.trim(),
+    customLogo: customLogo,
     socialHandle: document.getElementById('social-handle').value.trim(),
     platforms: document.getElementById('social-platforms').value.trim(),
     phone1: document.getElementById('phone1').value.trim(),
@@ -481,146 +365,99 @@ function saveBrand() {
   };
   localStorage.setItem('nm24_brand', JSON.stringify(data));
   const ok = document.getElementById('save-ok');
-  ok.style.display = 'block';
-  setTimeout(() => ok.style.display = 'none', 2500);
+  ok.style.display = 'block'; setTimeout(() => ok.style.display = 'none', 2500);
 }
 
 function saveApiKey() {
   const key = document.getElementById('api-key-input').value.trim();
   localStorage.setItem('nm24_apikey', key);
   const ok = document.getElementById('api-save-ok');
-  ok.style.display = 'block';
-  setTimeout(() => ok.style.display = 'none', 2500);
+  ok.style.display = 'block'; setTimeout(() => ok.style.display = 'none', 2500);
 }
 
-function getBrand() {
-  return JSON.parse(localStorage.getItem('nm24_brand') || '{}');
-}
-
+function getBrand() { return JSON.parse(localStorage.getItem('nm24_brand') || '{}'); }
 function setStatus(msg, type) {
-  const el = document.getElementById('gen-status');
-  el.className = 'status ' + type;
-  el.innerHTML = type === 'loading'
-    ? '<div class="spinner"></div>' + msg
-    : msg;
+  const el = document.getElementById('gen-status'); el.className = 'status ' + type;
+  el.innerHTML = type === 'loading' ? '<div class="spinner"></div>' + msg : msg;
 }
 
 async function generatePrompt() {
   const raw = document.getElementById('raw-input').value.trim();
   if (!raw) { setStatus('Pehle content paste karo!', 'err'); return; }
-
   const apiKey = localStorage.getItem('nm24_apikey') || '';
-  if (!apiKey) { setStatus('Pehle API Key save karo (API Key tab mein)!', 'err'); return; }
+  if (!apiKey) { setStatus('Pehle API Key save karo!', 'err'); return; }
 
   const b = getBrand();
   const brandName = b.brandName || 'NewsMarkets24 Network';
   const logoPos = b.logoPos || 'top-left corner';
   const logoDesc = b.logoDesc || 'globe with arrow icon';
+  const customLogo = b.customLogo || '';
   const socialHandle = b.socialHandle || '@NewsMarkets24';
-  const platforms = b.platforms || 'Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X';
+  const platforms = b.platforms || 'Facebook, Instagram, YouTube';
   const phone1 = b.phone1 || '8604981117';
   const phone2 = b.phone2 || '9125956465';
   const website = b.website || 'www.newsmarkets24.com';
   const imgStyle = b.imgStyle || '1:1 square Instagram post';
-  const extraNotes = b.extraNotes || 'dark semi-transparent overlay, bold orange headlines, white body text';
+  const extraNotes = b.extraNotes || 'dark semi-transparent overlay';
 
   setStatus('AI prompt bana raha hai...', 'loading');
   document.getElementById('output-area').style.display = 'none';
   document.getElementById('gen-btn').disabled = true;
 
-  const now = new Date();
-  const currentDate = now.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-  }).toUpperCase();
+  let logoInstruction = customLogo 
+    ? `- Top-left: place the provided uploaded brand logo exactly and faithfully, without redesigning or replacing it` 
+    : `- ${logoPos}: ${logoDesc} logo of "${brandName}"`;
+
+  const currentDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
 
   const systemPrompt = `You are an expert premium editorial visual prompt engineer.
-
 Generate ONE high-quality image-generation prompt for a premium Indian commodity news graphic.
-
-STRICT GOAL:
-This must look like a high-end financial news creative, NOT a boring text poster.
+STRICT GOAL: This must look like a high-end financial news creative, NOT a boring text poster.
 
 --------------------------------------------------
 VISUAL QUALITY (IMPORTANT)
 --------------------------------------------------
 - cinematic, photorealistic background
 - strong depth (foreground + midground + background)
-- dramatic but elegant lighting (golden hour or newsroom tone)
-- realistic agriculture / industry / commodity environment
+- dramatic but elegant lighting
+- realistic agriculture/industry environment
 - premium editorial composition
-- avoid flat or dull visuals
-- not overly text-heavy
 
 --------------------------------------------------
 TRUE BILINGUAL FORMAT (CRITICAL)
 --------------------------------------------------
-
 Do NOT mix Hindi and English in the same sentence.
-
-Do NOT make one section Hindi-only and another English-only.
-
-Every point MUST follow this pattern:
-
-Hindi line  
-English line  
+Every point MUST follow this pattern exactly:
+Hindi line
+English line
 
 --------------------------------------------------
 CONTENT STRUCTURE (STRICT)
 --------------------------------------------------
-
-1. HINDI HEADLINE  
-2. ENGLISH HEADLINE  
-
---------------------------------------------------
+1. HINDI HEADLINE
+2. ENGLISH HEADLINE
 
 मुख्य अपडेट / Key Update
-
-- Hindi point  
-- English point  
-
-- Hindi point  
-- English point  
-
+- Hindi point
+- English point
+- Hindi point
+- English point
 (2–4 pairs)
-
---------------------------------------------------
 
 बाजार पर प्रभाव / Market Impact
-
-- Hindi impact line  
-- English impact line  
-
-- Hindi impact line  
-- English impact line  
-
+- Hindi impact line
+- English impact line
 (2–4 pairs)
 
-Explain:
-- price direction
-- demand/supply
-- sentiment
-- farmer/trader impact
-- import/export effect
-
---------------------------------------------------
-
 बाजार का रुख / Market Tone
-
-- Hindi line  
-- English line  
-
-Example:
-- बाजार का रुख: सतर्क मजबूती  
-- Market Tone: Supportive with caution  
+- Hindi line
+- English line
 
 --------------------------------------------------
 LAYOUT
 --------------------------------------------------
-
 TOP HEADER:
-- ${logoPos}: ${logoDesc} logo of "${brandName}"
+${logoInstruction}
 - center: "${brandName}"
 - right: "${currentDate}"
 
@@ -631,56 +468,34 @@ MAIN PANEL:
 - sections visually separated
 - not cluttered
 
-BOTTOM:
-- Follow Us + icons (${platforms}) ${socialHandle}
-- Call & Message: ${phone1} | ${phone2}
-- ${website}
+EXPANDED PREMIUM FOOTER ZONE (CRITICAL):
+- Create a large, bold, and highly prominent double-layer bottom footer
+- Use high contrast and make it eye-catching
+- Upper Footer Row: Follow Us + icons (${platforms}) ${socialHandle} | ${website}
+- Lower Highlighted Action Row (Strong CTA Bar):
+  MUST be visually highlighted and larger text than normal footer. Include exactly:
+  "अगर आप भी मार्केट की हर खबर और तेजी-मंदी से अपडेट रहना चाहते हैं, तो अभी सर्विस लें।"
+  "If you also want to stay updated with every market move, news, and bullish-bearish trend, take the service now."
+  "Call or Message: ${phone1} | ${phone2}"
 
 --------------------------------------------------
 DESIGN QUALITY
 --------------------------------------------------
-
 ${extraNotes}
 Format: ${imgStyle}
+- clean hierarchy, more cinematic and less boring final composition
+- premium typography, good spacing
+- clear distinction between info footer and CTA footer
 
-- clean hierarchy
-- premium typography
-- good spacing
-- not cramped
-- visually appealing
-
---------------------------------------------------
-CONTENT INTELLIGENCE
---------------------------------------------------
-
-Infer forward market impact intelligently like a commodity expert.
-
---------------------------------------------------
-OUTPUT
---------------------------------------------------
-
-Return ONLY final image prompt.
-No explanation.
-No quotes.
-Concise but powerful.`;
+OUTPUT: Return ONLY final image prompt. No explanation.`;
 
   try {
     const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              { text: systemPrompt + "\n\n" + raw }
-            ]
-          }
-        ]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt + "\n\n" + raw }] }] })
     });
-
+    
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.error?.message || 'API error ' + res.status);
@@ -701,14 +516,11 @@ Concise but powerful.`;
 }
 
 function copyPrompt() {
-  const text = document.getElementById('output-text').textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(document.getElementById('output-text').textContent).then(() => {
     const msg = document.getElementById('copied-msg');
-    msg.style.display = 'inline';
-    setTimeout(() => msg.style.display = 'none', 2500);
+    msg.style.display = 'inline'; setTimeout(() => msg.style.display = 'none', 2500);
   });
 }
 </script>
 </body>
 </html>
-```
