@@ -588,55 +588,55 @@ async function generatePrompt() {
     
     const systemPrompt = `You are an expert premium editorial image prompt engineer for high-end Indian commodity market news creatives.
 
-Your job is to generate ONE complete, detailed, production-ready image-generation prompt.
+Generate ONE complete, production-ready image-generation prompt.
 
 IMPORTANT:
-You must NOT return a short generic prompt.
-You must NOT return only a cinematic background description.
-You must strictly follow the required NewsMarkets24 output structure.
-
-FINAL PROMPT MUST INCLUDE ALL OF THESE PARTS:
+The output must follow the required NewsMarkets24 bilingual editorial structure exactly.
+Do not return a generic image prompt.
+Do not skip sections.
+Do not shorten the structure.
 
 --------------------------------------------------
-PART 1 — VISUAL BACKGROUND
+FORMAT & RATIO
 --------------------------------------------------
-Write a detailed premium visual instruction in English:
-- cinematic
-- photorealistic
-- editorial financial-news style
-- relevant to the news topic
+Create a premium 4:5 vertical editorial commodity news poster.
+Portrait layout, optimized for Instagram 4:5.
+The design must feel premium, cinematic, balanced, and highly readable.
+
+--------------------------------------------------
+VISUAL BACKGROUND
+--------------------------------------------------
+Write detailed visual instructions in English:
+- cinematic, photorealistic background
 - strong foreground, midground, background depth
-- realistic commodity / mandi / agri / industrial setting
+- realistic mandi / commodity / agri / industrial setting
 - premium dramatic lighting
-- modern, high-end composition
-- visually engaging, not boring
+- high-end editorial composition
+- visually rich, not boring
+- content-friendly layout with enough clean readable space
 
 --------------------------------------------------
-PART 2 — HEADER BRANDING
+HEADER
 --------------------------------------------------
-Include clear instruction for top header:
-- Top-left: ${b.logoBase64 ? 'use uploaded logo faithfully' : (logoDesc ? `Logo: ${logoDesc}` : `Text logo: "${brandName}"`)}
-- Top-center:
-  "${brandName}"
-  and below it smaller tagline:
-  "India's No.1 Commodity Market Intelligence"
-- Top-right: current date
+Top-left: ${b.logoBase64 ? 'use uploaded logo faithfully' : (logoDesc ? `Logo: ${logoDesc}` : `Text logo: "${brandName}"`)}
+Top-center:
+"${brandName}"
+Below it smaller tagline:
+"India's No.1 Commodity Market Intelligence"
+Top-right: current date
 
 --------------------------------------------------
-PART 3 — DIAGONAL WATERMARK
+WATERMARK
 --------------------------------------------------
-Include instruction for a large diagonal watermark across the image:
-- text: "NewsMarkets24 Network"
-- semi-transparent
-- premium
-- subtle but visible
-- newsroom style
+Add a large premium diagonal watermark across the image:
+"NewsMarkets24 Network"
+semi-transparent
+subtle but clearly visible
+professional newsroom style
 
 --------------------------------------------------
-PART 4 — TEXT CONTENT STRUCTURE (STRICT)
+MAIN CONTENT STRUCTURE (STRICT)
 --------------------------------------------------
-
-The final image content must follow this exact bilingual paired format:
 
 Hindi Headline
 English Headline
@@ -659,28 +659,31 @@ English Headline
 - Hindi line
 - English line
 
-CRITICAL:
-- Do NOT mix Hindi and English in one sentence
-- Do NOT make one section Hindi-only and another English-only
-- Every important point must appear as a Hindi-English pair
-- Keep content concise, editorial, readable, and premium
+CRITICAL RULES:
+- Hindi first, English immediately below
+- Do not mix Hindi and English in one sentence
+- Do not rename section headings
+- Do not collapse sections
+- Do not omit Key Update
+- Do not omit Market Impact
+- Do not omit Market Tone
+- Keep sections clearly separated
+- Keep bilingual paired formatting throughout
 
 --------------------------------------------------
-PART 5 — FOOTER
+FOOTER
 --------------------------------------------------
-Footer must be larger, bolder, and more eye-catching.
-Use premium hierarchy.
-
+Keep a bold premium footer.
 Include:
 - social icons and handle: icons for ${platforms} labeled "${socialHandle}"
 - contact numbers: ${phone1} | ${phone2}
 - website: ${b.website || 'www.newsmarkets24.com'}
-- stronger visibility than before
+- visually larger, readable, and eye-catching
 
 --------------------------------------------------
-PART 6 — CTA
+CTA
 --------------------------------------------------
-Include this CTA clearly in the footer zone:
+Include this CTA clearly in footer zone:
 
 Hindi:
 "अगर आप भी मार्केट की हर खबर और तेजी-मंदी से अपडेट रहना चाहते हैं, तो अभी सर्विस लें।"
@@ -691,37 +694,70 @@ English:
 Then:
 "Call or Message: ${phone1} | ${phone2}"
 
-CTA must be visually highlighted, premium, and clearly separated.
-
 --------------------------------------------------
-PART 7 — OUTPUT QUALITY
+OUTPUT QUALITY
 --------------------------------------------------
-The final response must be a COMPLETE image-generation prompt.
-It must be detailed and usable directly.
-It must not be tiny.
-It must not be vague.
-It must not skip sections.
-It must feel like a production-ready prompt for a premium NewsMarkets24 visual.
-
+The final output must be detailed and production-ready.
+It must not be short or vague.
+It must preserve structure exactly.
 Return ONLY the final image-generation prompt. No explanation. No intro. No quotation marks.`;
 
-    const finalRes = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ role: 'user', parts: [{ text: "Content to process:\n\n" + finalSourceContent }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-      })
-    });
+    let userMessageContent = `Using the following source content, generate the final NewsMarkets24 premium image-generation prompt.
+Follow this exact structure strictly:
+1. Hindi Headline
+2. English Headline
+3. मुख्य अपडेट / Key Update
+4. बाजार पर प्रभाव / Market Impact
+5. बाजार का रुख / Market Tone
 
-    if (!finalRes.ok) {
-      const err = await finalRes.json();
-      throw new Error(err.error?.message || 'Final API error ' + finalRes.status);
+Each important point must appear as:
+Hindi line
+English line
+
+Also keep:
+- 4:5 vertical format
+- top branding
+- tagline
+- diagonal watermark
+- premium footer
+- CTA footer
+
+SOURCE CONTENT:
+${finalSourceContent}`;
+
+    let result = "";
+    const fetchPrompt = async (retryMessage) => {
+      let messageContent = retryMessage ? retryMessage + "\n\n" + userMessageContent : userMessageContent;
+      
+      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ role: 'user', parts: [{ text: messageContent }] }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error?.message || 'Final API error ' + res.status);
+      }
+
+      const finalData = await res.json();
+      return finalData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    };
+
+    result = await fetchPrompt();
+    
+    const isShort = result.length < 250;
+    const missingSections = !result.includes('Update') || !result.includes('Impact') || !result.includes('Tone') || !result.includes('4:5');
+    
+    if (isShort || missingSections) {
+       setStatus('Prompt short tha, retry kar raha hai...', 'loading');
+       result = await fetchPrompt("Your previous output was incomplete. Regenerate the full structured NewsMarkets24 prompt with all required bilingual sections and 4:5 format.");
     }
 
-    const finalData = await finalRes.json();
-    const result = finalData.candidates?.[0]?.content?.parts?.[0]?.text || '';
     if (!result) throw new Error('Empty response from model');
 
     document.getElementById('output-text').textContent = result.trim();
