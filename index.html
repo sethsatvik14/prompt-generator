@@ -32,135 +32,257 @@
     display: flex;
     flex-direction: column;
   }
-
   nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 28px; border-bottom: 1px solid var(--border);
-    background: rgba(10,12,15,0.9); backdrop-filter: blur(12px);
-    position: sticky; top: 0; z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,12,15,0.9);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   .nav-logo {
-    width: 34px; height: 34px; background: var(--orange);
-    border-radius: 8px; display: flex; align-items: center;
-    justify-content: center; font-size: 16px; font-weight: 700;
-    color: white; letter-spacing: -1px;
+    width: 34px;
+    height: 34px;
+    background: var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
   }
   .nav-name { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
   .nav-name span { color: var(--orange); }
   .nav-badge {
-    font-size: 11px; padding: 3px 10px; border-radius: 20px;
-    background: var(--orange-dim); color: var(--orange);
-    border: 1px solid rgba(249,115,22,0.2); font-weight: 600;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--orange-dim);
+    color: var(--orange);
+    border: 1px solid rgba(249,115,22,0.2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
-
-  main { flex: 1; max-width: 820px; width: 100%; margin: 0 auto; padding: 28px 20px 60px; }
-
-  .page-title { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  main {
+    flex: 1;
+    max-width: 820px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
   .page-title span { color: var(--orange); }
-  .page-sub { font-size: 14px; color: var(--text-sec); margin-bottom: 28px; }
-
+  .page-sub { font-size: 14px; color: var(--text-sec); margin-bottom: 28px; line-height: 1.6; }
   .tabs {
-    display: flex; gap: 4px; background: var(--surface);
-    border-radius: 10px; padding: 4px; margin-bottom: 24px;
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
     border: 1px solid var(--border);
   }
   .tab {
-    flex: 1; padding: 9px 12px; font-size: 14px; font-weight: 600;
-    border-radius: 7px; cursor: pointer; color: var(--text-sec);
-    border: none; background: transparent; transition: all 0.2s;
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 7px;
+    cursor: pointer;
+    color: var(--text-sec);
+    border: none;
+    background: transparent;
+    transition: all 0.2s;
     font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.3px;
   }
   .tab:hover { color: var(--text); }
-  .tab.active { background: var(--surface2); color: var(--orange); border: 1px solid var(--border2); }
-
+  .tab.active {
+    background: var(--surface2);
+    color: var(--orange);
+    border: 1px solid var(--border2);
+  }
   .label {
-    font-size: 11px; font-weight: 700; color: var(--text-sec);
-    text-transform: uppercase; margin-bottom: 7px; display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-sec);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+    display: block;
   }
   .field { margin-bottom: 18px; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
 
-  textarea, input[type=text] {
-    width: 100%; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--text);
-    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif; resize: vertical;
+  textarea, input[type=text], input[type=file] {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
+    resize: vertical;
+    line-height: 1.7;
+    transition: border-color 0.2s;
   }
-  textarea:focus, input[type=text]:focus { outline: none; border-color: var(--orange); background: var(--surface2); }
-  
-  input[type=file] {
-    width: 100%; background: var(--surface); border: 1px dashed var(--border);
-    border-radius: 8px; font-size: 13px; color: var(--text-sec); cursor: pointer;
+  textarea:focus, input[type=text]:focus, input[type=file]:focus {
+    outline: none;
+    border-color: var(--orange);
+    background: var(--surface2);
   }
-  input[type=file]::file-selector-button {
-    background: var(--surface2); border: 1px solid var(--border2); color: var(--text);
-    padding: 6px 12px; border-radius: 6px; margin-right: 10px; cursor: pointer;
-    font-family: inherit; font-weight: 600; transition: all 0.2s;
-  }
-  input[type=file]::file-selector-button:hover { border-color: var(--orange); color: var(--orange); }
+  textarea::placeholder, input::placeholder { color: var(--text-dim); }
 
   .btn {
-    padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 700;
-    cursor: pointer; border: 1px solid var(--border2); background: var(--surface2);
-    color: var(--text); transition: all 0.2s; font-family: 'Rajdhani', sans-serif;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--surface2);
+    color: var(--text);
+    transition: all 0.2s;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.3px;
   }
   .btn:hover { border-color: var(--orange); color: var(--orange); }
-  .btn-primary { background: var(--orange); color: white; border-color: var(--orange); }
-  .btn-primary:hover { background: #ea6c0a; border-color: #ea6c0a; }
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+  }
+  .btn-primary:hover { background: #ea6c0a; color: white; border-color: #ea6c0a; }
   .btn-sm { padding: 6px 12px; font-size: 12px; }
   .btn-full { width: 100%; padding: 13px; font-size: 15px; }
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
   .output-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 18px; margin-top: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 20px;
+    position: relative;
   }
   .output-card.success { border-color: rgba(249,115,22,0.3); }
   .output-label {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    color: var(--orange); margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    margin-bottom: 10px;
   }
   #output-text {
-    font-size: 14px; line-height: 1.85; color: var(--text);
-    white-space: pre-wrap; word-break: break-word; font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'Noto Sans Devanagari', 'Rajdhani', sans-serif;
   }
-  .output-actions { display: flex; gap: 8px; margin-top: 14px; align-items: center; }
-  .copied-msg { font-size: 12px; color: var(--green); display: none; }
+  .output-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .copied-msg {
+    font-size: 12px;
+    color: var(--green);
+    display: none;
+  }
 
-  .status { font-size: 13px; margin-top: 10px; min-height: 20px; display: flex; align-items: center; gap: 8px; }
-  .status.loading { color: var(--blue); } .status.done { color: var(--green); } .status.err { color: var(--red); }
+  .status {
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status.loading { color: var(--blue); }
+  .status.done { color: var(--green); }
+  .status.err { color: var(--red); }
   .spinner {
-    width: 13px; height: 13px; border: 2px solid var(--border2); border-top-color: var(--blue);
-    border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
+    width: 13px; height: 13px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .steps { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
   .step { display: flex; gap: 12px; align-items: flex-start; }
   .step-num {
-    width: 26px; height: 26px; border-radius: 50%; background: var(--orange-dim);
-    border: 1px solid rgba(249,115,22,0.25); font-size: 12px; font-weight: 700;
-    color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--orange-dim);
+    border: 1px solid rgba(249,115,22,0.25);
+    font-size: 12px; font-weight: 700;
+    color: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
   }
   .step-text { font-size: 14px; color: var(--text-sec); line-height: 1.6; padding-top: 3px; }
   .step-text b { color: var(--text); font-weight: 600; }
 
   .section-title {
-    font-size: 13px; font-weight: 700; color: var(--orange); text-transform: uppercase;
-    margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
   }
-  .save-ok { font-size: 12px; color: var(--green); margin-top: 8px; display: none; }
+  .save-ok {
+    font-size: 12px;
+    color: var(--green);
+    margin-top: 8px;
+    display: none;
+  }
 
   .api-notice {
-    background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2);
-    border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; font-size: 13px; color: var(--text-sec);
+    background: var(--blue-dim);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--text-sec);
+    line-height: 1.7;
   }
-  .api-notice b { color: var(--text); } .api-notice a { color: var(--blue); }
+  .api-notice b { color: var(--text); }
+  .api-notice a { color: var(--blue); }
 
   @media (max-width: 540px) {
     .row2 { grid-template-columns: 1fr; }
-    nav { padding: 12px 16px; } main { padding: 20px 14px 50px; }
+    nav { padding: 12px 16px; }
+    main { padding: 20px 14px 50px; }
   }
 </style>
 </head>
@@ -176,7 +298,7 @@
 
 <main>
   <h1 class="page-title">Image <span>Prompt</span> Generator</h1>
-  <p class="page-sub">Raw content paste karo — AI visual + content dono ke saath NanoBanana 2 ke liye perfect prompt banayega</p>
+  <p class="page-sub">Raw content ya image se AI visual + content dono ke saath NanoBanana 2 ke liye perfect prompt banayega</p>
 
   <div class="tabs">
     <button class="tab active" id="tab-gen" onclick="switchTab('gen')">Generate</button>
@@ -186,15 +308,21 @@
 
   <div id="panel-gen">
     <div class="field">
+      <span class="label">Upload News Image (Optional)</span>
+      <input type="file" id="image-upload" accept="image/png, image/jpeg, image/webp" style="padding: 10px; font-size: 13px;">
+      <img id="image-preview" style="max-width: 150px; display: none; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border);">
+    </div>
+    
+    <div class="field">
       <span class="label">Raw Content Yahan Paste Karo</span>
-      <textarea id="raw-input" rows="9" placeholder="Koi bhi content paste karo..."></textarea>
+      <textarea id="raw-input" rows="7" placeholder="Koi bhi content paste karo — news, idea, caption, story...&#10;Agar image aur text dono doge toh AI dono ko mila kar prompt banayega."></textarea>
     </div>
     <button class="btn btn-primary btn-full" onclick="generatePrompt()" id="gen-btn">⚡ Generate Prompt</button>
     <div class="status" id="gen-status"></div>
 
     <div id="output-area" style="display:none">
       <div class="output-card success">
-        <div class="output-label">Generated Prompt</div>
+        <div class="output-label">Generated Prompt — NanoBanana 2 ke liye ready</div>
         <div id="output-text"></div>
         <div class="output-actions">
           <button class="btn btn-primary btn-sm" onclick="copyPrompt()">Copy Prompt</button>
@@ -205,10 +333,22 @@
     </div>
 
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-text">API Key tab mein apni <b>Google Gemini API Key</b> save karo (sirf ek baar)</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text">Brand Settings mein apna <b>logo, handles, numbers</b> set karo</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text">Raw content paste karo</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-text">Prompt copy karo aur <b>NanoBanana 2</b> mein paste karo</div></div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">API Key tab mein apni <b>Gemini API Key</b> save karo (sirf ek baar)</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Brand Settings mein apna <b>logo, social handles, numbers</b> set karo</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Content paste karo ya <b>Image upload</b> karo — structured <b>bilingual text</b> aur visual layout ready milega</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Prompt copy karo aur <b>NanoBanana 2</b> mein paste karo</div>
+      </div>
     </div>
   </div>
 
@@ -218,75 +358,65 @@
       <span class="label">Brand / Channel Name</span>
       <input type="text" id="brand-name" value="NewsMarkets24 Network" />
     </div>
-
     <div class="row2">
       <div>
-        <span class="label">Upload Logo (PNG/JPG/WebP)</span>
-        <input type="file" id="logo-upload" accept="image/png, image/jpeg, image/webp" onchange="handleLogoUpload(event)" style="padding: 9px;" />
-      </div>
-      <div>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span class="label">Logo Preview</span>
-          <button onclick="clearLogo()" style="background:none; border:none; color:var(--text-sec); font-size:11px; cursor:pointer; font-weight:700; display:none;" id="logo-clear-btn">CLEAR</button>
-        </div>
-        <div id="logo-preview-container" style="width: 100%; height: 44px; border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--surface2); overflow: hidden;">
-          <span style="font-size: 11px; color: var(--text-dim);" id="logo-preview-text">No Logo</span>
-          <img id="logo-preview-img" style="display: none; max-height: 100%; max-width: 100%; object-fit: contain;" />
-        </div>
-      </div>
-    </div>
-
-    <div class="row2">
-      <div>
-        <span class="label">Logo Position (Text Fallback)</span>
-        <input type="text" id="logo-pos" value="top-left corner" />
-      </div>
-      <div>
-        <span class="label">Logo Description (Text Fallback)</span>
+        <span class="label">Logo Description</span>
         <input type="text" id="logo-desc" value="globe with arrow icon, circular" />
+      </div>
+      <div>
+        <span class="label">Logo Upload (Optional)</span>
+        <input type="file" id="logo-upload" accept="image/png, image/jpeg, image/webp" style="padding: 10px; font-size: 13px;">
+        <img id="logo-preview" style="max-height: 44px; object-fit: contain; display: none; margin-top: 8px; border-radius: 4px;">
       </div>
     </div>
 
     <div class="divider"></div>
     <div class="section-title">Footer Strip — Bottom Bar</div>
-
     <div class="field">
       <span class="label">Social Media Handle</span>
       <input type="text" id="social-handle" value="@NewsMarkets24" />
     </div>
     <div class="field">
       <span class="label">Social Platforms</span>
-      <input type="text" id="social-platforms" value="Facebook, Instagram, YouTube" />
+      <input type="text" id="social-platforms" value="Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X" />
     </div>
     <div class="row2">
-      <div><span class="label">Contact Number 1</span><input type="text" id="phone1" value="8604981117" /></div>
-      <div><span class="label">Contact Number 2</span><input type="text" id="phone2" value="9125956465" /></div>
+      <div>
+        <span class="label">Contact Number 1</span>
+        <input type="text" id="phone1" value="8604981117" />
+      </div>
+      <div>
+        <span class="label">Contact Number 2</span>
+        <input type="text" id="phone2" value="9125956465" />
+      </div>
     </div>
-    <div class="field"><span class="label">Website</span><input type="text" id="website" value="www.newsmarkets24.com" /></div>
+    <div class="field">
+      <span class="label">Website</span>
+      <input type="text" id="website" value="www.newsmarkets24.com" />
+    </div>
 
     <div class="divider"></div>
     <div class="section-title">Design Settings</div>
     <div class="field">
       <span class="label">Image Format / Platform</span>
-      <input type="text" id="img-style" value="1:1 square Instagram post" />
+      <input type="text" id="img-style" value="1:1 square Instagram post, professional news broadcast aesthetic" />
     </div>
     <div class="field">
       <span class="label">Extra Fixed Instructions</span>
-      <textarea id="extra-notes" rows="3">cinematic photorealistic background</textarea>
+      <textarea id="extra-notes" rows="3">dark semi-transparent overlay panel for text, bold orange headlines, white body text, cinematic photorealistic background</textarea>
     </div>
-
     <button class="btn btn-primary btn-full" onclick="saveBrand()">Save Brand Settings</button>
     <div class="save-ok" id="save-ok">✓ Brand settings saved!</div>
   </div>
 
   <div id="panel-api" style="display:none">
     <div class="api-notice">
-      <b>Google Gemini API Key kahan se milegi?</b><br>
-      <a href="https://aistudio.google.com" target="_blank">Google AI Studio (aistudio.google.com)</a> pe jaao → API Keys → Create Key → yahan paste karo.<br><br>
+      <b>Gemini API Key kahan se milegi?</b><br>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> pe jaao → Create API Key → yahan paste karo.<br><br>
       <b>Note:</b> Key sirf aapke browser mein save hogi, kahi server pe nahi jaayegi.
     </div>
     <div class="field">
-      <span class="label">Google Gemini API Key</span>
+      <span class="label">Gemini API Key</span>
       <input type="text" id="api-key-input" placeholder="AIzaSy..." />
     </div>
     <button class="btn btn-primary btn-full" onclick="saveApiKey()">Save API Key</button>
@@ -295,11 +425,52 @@
 </main>
 
 <script>
+let uploadedImageBase64 = "";
+document.getElementById('image-upload').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      uploadedImageBase64 = evt.target.result.split(',')[1];
+      const preview = document.getElementById('image-preview');
+      preview.src = evt.target.result;
+      preview.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  } else {
+    uploadedImageBase64 = "";
+    document.getElementById('image-preview').style.display = 'none';
+  }
+});
+
+let savedLogoBase64 = "";
+document.getElementById('logo-upload').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      savedLogoBase64 = evt.target.result;
+      const preview = document.getElementById('logo-preview');
+      preview.src = savedLogoBase64;
+      preview.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  } else {
+    savedLogoBase64 = "";
+    document.getElementById('logo-preview').style.display = 'none';
+  }
+});
+
 window.onload = function() {
   const saved = JSON.parse(localStorage.getItem('nm24_brand') || '{}');
   if (saved.brandName) document.getElementById('brand-name').value = saved.brandName;
-  if (saved.logoPos) document.getElementById('logo-pos').value = saved.logoPos;
   if (saved.logoDesc) document.getElementById('logo-desc').value = saved.logoDesc;
+  if (saved.logoBase64) {
+    savedLogoBase64 = saved.logoBase64;
+    const preview = document.getElementById('logo-preview');
+    preview.src = savedLogoBase64;
+    preview.style.display = 'block';
+  }
   if (saved.socialHandle) document.getElementById('social-handle').value = saved.socialHandle;
   if (saved.platforms) document.getElementById('social-platforms').value = saved.platforms;
   if (saved.phone1) document.getElementById('phone1').value = saved.phone1;
@@ -308,12 +479,6 @@ window.onload = function() {
   if (saved.imgStyle) document.getElementById('img-style').value = saved.imgStyle;
   if (saved.extraNotes) document.getElementById('extra-notes').value = saved.extraNotes;
 
-  if (saved.customLogo) {
-    document.getElementById('logo-preview-img').src = saved.customLogo;
-    document.getElementById('logo-preview-img').style.display = 'block';
-    document.getElementById('logo-preview-text').style.display = 'none';
-    document.getElementById('logo-clear-btn').style.display = 'inline-block';
-  }
   const savedKey = localStorage.getItem('nm24_apikey') || '';
   if (savedKey) document.getElementById('api-key-input').value = savedKey;
 };
@@ -325,36 +490,11 @@ function switchTab(t) {
   });
 }
 
-function handleLogoUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const base64 = e.target.result;
-    document.getElementById('logo-preview-img').src = base64;
-    document.getElementById('logo-preview-img').style.display = 'block';
-    document.getElementById('logo-preview-text').style.display = 'none';
-    document.getElementById('logo-clear-btn').style.display = 'inline-block';
-  };
-  reader.readAsDataURL(file);
-}
-
-function clearLogo() {
-  document.getElementById('logo-upload').value = '';
-  document.getElementById('logo-preview-img').src = '';
-  document.getElementById('logo-preview-img').style.display = 'none';
-  document.getElementById('logo-preview-text').style.display = 'block';
-  document.getElementById('logo-clear-btn').style.display = 'none';
-}
-
 function saveBrand() {
-  const imgEl = document.getElementById('logo-preview-img');
-  const customLogo = imgEl.style.display === 'block' ? imgEl.src : '';
   const data = {
     brandName: document.getElementById('brand-name').value.trim(),
-    logoPos: document.getElementById('logo-pos').value.trim(),
     logoDesc: document.getElementById('logo-desc').value.trim(),
-    customLogo: customLogo,
+    logoBase64: savedLogoBase64,
     socialHandle: document.getElementById('social-handle').value.trim(),
     platforms: document.getElementById('social-platforms').value.trim(),
     phone1: document.getElementById('phone1').value.trim(),
@@ -365,137 +505,134 @@ function saveBrand() {
   };
   localStorage.setItem('nm24_brand', JSON.stringify(data));
   const ok = document.getElementById('save-ok');
-  ok.style.display = 'block'; setTimeout(() => ok.style.display = 'none', 2500);
+  ok.style.display = 'block';
+  setTimeout(() => ok.style.display = 'none', 2500);
 }
 
 function saveApiKey() {
   const key = document.getElementById('api-key-input').value.trim();
   localStorage.setItem('nm24_apikey', key);
   const ok = document.getElementById('api-save-ok');
-  ok.style.display = 'block'; setTimeout(() => ok.style.display = 'none', 2500);
+  ok.style.display = 'block';
+  setTimeout(() => ok.style.display = 'none', 2500);
 }
 
-function getBrand() { return JSON.parse(localStorage.getItem('nm24_brand') || '{}'); }
+function getBrand() {
+  return JSON.parse(localStorage.getItem('nm24_brand') || '{}');
+}
+
 function setStatus(msg, type) {
-  const el = document.getElementById('gen-status'); el.className = 'status ' + type;
-  el.innerHTML = type === 'loading' ? '<div class="spinner"></div>' + msg : msg;
+  const el = document.getElementById('gen-status');
+  el.className = 'status ' + type;
+  el.innerHTML = type === 'loading'
+    ? '<div class="spinner"></div>' + msg
+    : msg;
 }
 
 async function generatePrompt() {
   const raw = document.getElementById('raw-input').value.trim();
-  if (!raw) { setStatus('Pehle content paste karo!', 'err'); return; }
+  if (!raw && !uploadedImageBase64) { 
+    setStatus('Pehle content paste karo ya image upload karo!', 'err'); 
+    return; 
+  }
+
   const apiKey = localStorage.getItem('nm24_apikey') || '';
-  if (!apiKey) { setStatus('Pehle API Key save karo!', 'err'); return; }
+  if (!apiKey) { setStatus('Pehle API Key save karo (API Key tab mein)!', 'err'); return; }
 
   const b = getBrand();
   const brandName = b.brandName || 'NewsMarkets24 Network';
-  const logoPos = b.logoPos || 'top-left corner';
   const logoDesc = b.logoDesc || 'globe with arrow icon';
-  const customLogo = b.customLogo || '';
   const socialHandle = b.socialHandle || '@NewsMarkets24';
-  const platforms = b.platforms || 'Facebook, Instagram, YouTube';
+  const platforms = b.platforms || 'Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X';
   const phone1 = b.phone1 || '8604981117';
   const phone2 = b.phone2 || '9125956465';
   const website = b.website || 'www.newsmarkets24.com';
-  const imgStyle = b.imgStyle || '1:1 square Instagram post';
-  const extraNotes = b.extraNotes || 'dark semi-transparent overlay';
+  const imgStyle = b.imgStyle || '1:1 square Instagram post, professional news broadcast aesthetic';
+  const extraNotes = b.extraNotes || 'dark semi-transparent overlay panel for text, bold orange headlines, white body text, cinematic photorealistic background';
 
   setStatus('AI prompt bana raha hai...', 'loading');
   document.getElementById('output-area').style.display = 'none';
   document.getElementById('gen-btn').disabled = true;
 
-  let logoInstruction = customLogo 
-    ? `- Top-left: place the provided uploaded brand logo exactly and faithfully, without redesigning or replacing it` 
-    : `- ${logoPos}: ${logoDesc} logo of "${brandName}"`;
+  const systemPrompt = `You are an expert AI image prompt engineer for NanoBanana 2. Generate ONE complete image generation prompt. Follow ALL rules strictly:
 
-  const currentDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
+RULE 1 — VISUAL BACKGROUND (in English):
+Describe a cinematic, high-end editorial, photorealistic background scene matching the content's theme. Include: scene, lighting, strong depth, color palette, camera angle, lens, atmosphere, style. Must be a clean layout, visually engaging, modern commodity news design, and NOT text-heavy clutter.
 
-  const systemPrompt = `You are an expert premium editorial visual prompt engineer.
-Generate ONE high-quality image-generation prompt for a premium Indian commodity news graphic.
-STRICT GOAL: This must look like a high-end financial news creative, NOT a boring text poster.
+RULE 2 — FIXED LAYOUT STRUCTURE (always include exactly):
 
---------------------------------------------------
-VISUAL QUALITY (IMPORTANT)
---------------------------------------------------
-- cinematic, photorealistic background
-- strong depth (foreground + midground + background)
-- dramatic but elegant lighting
-- realistic agriculture/industry environment
-- premium editorial composition
+TOP HEADER BAR:
+- Left: ${b.logoBase64 ? 'Exact uploaded logo provided' : (logoDesc ? `Logo: ${logoDesc}` : `Text logo: "${brandName}"`)}
+- Center: "${brandName}"
+  below it smaller tagline: "India's No.1 Commodity Market Intelligence"
+- Right: today's date
 
---------------------------------------------------
-TRUE BILINGUAL FORMAT (CRITICAL)
---------------------------------------------------
-Do NOT mix Hindi and English in the same sentence.
-Every point MUST follow this pattern exactly:
-Hindi line
-English line
+MAIN CONTENT AREA (dark semi-transparent overlay panel with better spacing):
+- Extract key news from the provided raw text and/or image.
+- Format strictly in TRUE BILINGUAL format (Hindi and English), exactly like this:
 
---------------------------------------------------
-CONTENT STRUCTURE (STRICT)
---------------------------------------------------
-1. HINDI HEADLINE
-2. ENGLISH HEADLINE
+[Hindi Headline]
+[English Headline]
 
 मुख्य अपडेट / Key Update
-- Hindi point
-- English point
-- Hindi point
-- English point
-(2–4 pairs)
+- [Hindi bullet point]
+- [English bullet point]
 
 बाजार पर प्रभाव / Market Impact
-- Hindi impact line
-- English impact line
-(2–4 pairs)
+- [Hindi bullet point]
+- [English bullet point]
 
 बाजार का रुख / Market Tone
-- Hindi line
-- English line
+- [Hindi bullet point]
+- [English bullet point]
 
---------------------------------------------------
-LAYOUT
---------------------------------------------------
-TOP HEADER:
-${logoInstruction}
-- center: "${brandName}"
-- right: "${currentDate}"
+WATERMARK (Must look premium, not cheap, low opacity, not disturbing main content):
+- A large diagonal watermark across the entire image
+- Text: "NewsMarkets24 Network"
+- Style: semi-transparent, white or light grey, rotated diagonal across full frame, professional newsroom watermark feel.
 
-MAIN PANEL:
-- glassmorphic / dark premium panel
-- clear spacing between sections
-- headline bold and highlighted
-- sections visually separated
-- not cluttered
-
-EXPANDED PREMIUM FOOTER ZONE (CRITICAL):
-- Create a large, bold, and highly prominent double-layer bottom footer
-- Use high contrast and make it eye-catching
-- Upper Footer Row: Follow Us + icons (${platforms}) ${socialHandle} | ${website}
-- Lower Highlighted Action Row (Strong CTA Bar):
-  MUST be visually highlighted and larger text than normal footer. Include exactly:
+BOTTOM FOOTER STRIP (Large, bold, eye-catching, premium, separated into sections):
+- Section 1 (CTA Text):
   "अगर आप भी मार्केट की हर खबर और तेजी-मंदी से अपडेट रहना चाहते हैं, तो अभी सर्विस लें।"
-  "If you also want to stay updated with every market move, news, and bullish-bearish trend, take the service now."
-  "Call or Message: ${phone1} | ${phone2}"
+  "If you want to stay updated with every market move, take the service now."
+- Section 2 (Socials): "Follow Us:" icons for ${platforms} labeled "${socialHandle}"
+- Section 3 (Contact): "Call or Message: ${phone1} | ${phone2}"
+- Center or below: ${website}
 
---------------------------------------------------
-DESIGN QUALITY
---------------------------------------------------
-${extraNotes}
-Format: ${imgStyle}
-- clean hierarchy, more cinematic and less boring final composition
-- premium typography, good spacing
-- clear distinction between info footer and CTA footer
+RULE 3 — DESIGN: ${extraNotes}. Format: ${imgStyle}.
 
-OUTPUT: Return ONLY final image prompt. No explanation.`;
+RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no comments. Output full content ready for NanoBanana 2.`;
 
   try {
+    const fileInput = document.getElementById('image-upload');
+    const mimeType = fileInput.files[0] ? fileInput.files[0].type : "image/jpeg";
+    
+    let userParts = [];
+    let introText = "Here is the content to generate the prompt for.\n";
+    if (raw) introText += "RAW TEXT:\n" + raw + "\n";
+    if (uploadedImageBase64) {
+      introText += "IMAGE PROVIDED. Extract the text/content from this image. If raw text is also provided, combine both intelligently. If only image is provided, rely fully on the image text.\n";
+      userParts.push({ text: introText });
+      userParts.push({
+        inlineData: {
+          mimeType: mimeType,
+          data: uploadedImageBase64
+        }
+      });
+    } else {
+      userParts.push({ text: introText });
+    }
+
     const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt + "\n\n" + raw }] }] })
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: 'user', parts: userParts }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
+      })
     });
-    
+
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.error?.message || 'API error ' + res.status);
@@ -503,9 +640,9 @@ OUTPUT: Return ONLY final image prompt. No explanation.`;
 
     const data = await res.json();
     const result = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    if (!result) throw new Error('Empty response');
+    if (!result) throw new Error('Empty response from model');
 
-    document.getElementById('output-text').textContent = result;
+    document.getElementById('output-text').textContent = result.trim();
     document.getElementById('output-area').style.display = 'block';
     setStatus('✓ Prompt ready hai! Copy karo aur NanoBanana 2 mein paste karo.', 'done');
   } catch(e) {
@@ -516,9 +653,11 @@ OUTPUT: Return ONLY final image prompt. No explanation.`;
 }
 
 function copyPrompt() {
-  navigator.clipboard.writeText(document.getElementById('output-text').textContent).then(() => {
+  const text = document.getElementById('output-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
     const msg = document.getElementById('copied-msg');
-    msg.style.display = 'inline'; setTimeout(() => msg.style.display = 'none', 2500);
+    msg.style.display = 'inline';
+    setTimeout(() => msg.style.display = 'none', 2500);
   });
 }
 </script>
