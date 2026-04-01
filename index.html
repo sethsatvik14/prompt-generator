@@ -546,100 +546,182 @@ async function generatePrompt() {
   const platforms = b.platforms || 'Facebook, Instagram, YouTube, Telegram, WhatsApp, Twitter/X';
   const phone1 = b.phone1 || '8604981117';
   const phone2 = b.phone2 || '9125956465';
-  const website = b.website || 'www.newsmarkets24.com';
-  const imgStyle = b.imgStyle || '1:1 square Instagram post, professional news broadcast aesthetic';
-  const extraNotes = b.extraNotes || 'dark semi-transparent overlay panel for text, bold orange headlines, white body text, cinematic photorealistic background';
-
-  setStatus('AI prompt bana raha hai...', 'loading');
+  
   document.getElementById('output-area').style.display = 'none';
   document.getElementById('gen-btn').disabled = true;
 
-  const systemPrompt = `You are an expert AI image prompt engineer for NanoBanana 2. Generate ONE complete image generation prompt. Follow ALL rules strictly:
-
-RULE 1 — VISUAL BACKGROUND (in English):
-Describe a cinematic, high-end editorial, photorealistic background scene matching the content's theme. Include: scene, lighting, strong depth, color palette, camera angle, lens, atmosphere, style. Must be a clean layout, visually engaging, modern commodity news design, and NOT text-heavy clutter.
-
-RULE 2 — FIXED LAYOUT STRUCTURE (always include exactly):
-
-TOP HEADER BAR:
-- Left: ${b.logoBase64 ? 'Exact uploaded logo provided' : (logoDesc ? `Logo: ${logoDesc}` : `Text logo: "${brandName}"`)}
-- Center: "${brandName}"
-  below it smaller tagline: "India's No.1 Commodity Market Intelligence"
-- Right: today's date
-
-MAIN CONTENT AREA (dark semi-transparent overlay panel with better spacing):
-- Extract key news from the provided raw text and/or image.
-- Format strictly in TRUE BILINGUAL format (Hindi and English), exactly like this:
-
-[Hindi Headline]
-[English Headline]
-
-मुख्य अपडेट / Key Update
-- [Hindi bullet point]
-- [English bullet point]
-
-बाजार पर प्रभाव / Market Impact
-- [Hindi bullet point]
-- [English bullet point]
-
-बाजार का रुख / Market Tone
-- [Hindi bullet point]
-- [English bullet point]
-
-WATERMARK (Must look premium, not cheap, low opacity, not disturbing main content):
-- A large diagonal watermark across the entire image
-- Text: "NewsMarkets24 Network"
-- Style: semi-transparent, white or light grey, rotated diagonal across full frame, professional newsroom watermark feel.
-
-BOTTOM FOOTER STRIP (Large, bold, eye-catching, premium, separated into sections):
-- Section 1 (CTA Text):
-  "अगर आप भी मार्केट की हर खबर और तेजी-मंदी से अपडेट रहना चाहते हैं, तो अभी सर्विस लें।"
-  "If you want to stay updated with every market move, take the service now."
-- Section 2 (Socials): "Follow Us:" icons for ${platforms} labeled "${socialHandle}"
-- Section 3 (Contact): "Call or Message: ${phone1} | ${phone2}"
-- Center or below: ${website}
-
-RULE 3 — DESIGN: ${extraNotes}. Format: ${imgStyle}.
-
-RULE 4 — OUTPUT: Output ONLY the final prompt. No explanation, no intro, no comments. Output full content ready for NanoBanana 2.`;
-
   try {
-    const fileInput = document.getElementById('image-upload');
-    const mimeType = fileInput.files[0] ? fileInput.files[0].type : "image/jpeg";
-    
-    let userParts = [];
-    let introText = "Here is the content to generate the prompt for.\n";
-    if (raw) introText += "RAW TEXT:\n" + raw + "\n";
+    let extractedText = "";
     if (uploadedImageBase64) {
-      introText += "IMAGE PROVIDED. Extract the text/content from this image. If raw text is also provided, combine both intelligently. If only image is provided, rely fully on the image text.\n";
-      userParts.push({ text: introText });
-      userParts.push({
-        inlineData: {
-          mimeType: mimeType,
-          data: uploadedImageBase64
-        }
+      setStatus('Image se text nikal raha hai...', 'loading');
+      const fileInput = document.getElementById('image-upload');
+      const mimeType = fileInput.files[0] ? fileInput.files[0].type : "image/jpeg";
+      
+      const extractRes = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            role: 'user',
+            parts: [
+              { text: "Read this image carefully and extract all readable news text completely and accurately. Do not summarize. Do not shorten. Do not generate visual prompt. Only extract the visible text." },
+              { inlineData: { mimeType: mimeType, data: uploadedImageBase64 } }
+            ]
+          }],
+          generationConfig: { temperature: 0.2 }
+        })
       });
-    } else {
-      userParts.push({ text: introText });
+      if (!extractRes.ok) throw new Error('Failed to extract text from image');
+      const extractData = await extractRes.json();
+      extractedText = extractData.candidates?.[0]?.content?.parts?.[0]?.text || '';
     }
 
-    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
+    let finalSourceContent = "";
+    if (raw) finalSourceContent += "RAW TEXT START:\n" + raw + "\nRAW TEXT END\n\n";
+    if (extractedText) finalSourceContent += "IMAGE EXTRACTED TEXT START:\n" + extractedText + "\nIMAGE EXTRACTED TEXT END\n";
+
+    if (!finalSourceContent.trim()) {
+      throw new Error('Koi final content nahi mila!');
+    }
+
+    setStatus('AI prompt bana raha hai...', 'loading');
+    
+    const systemPrompt = `You are an expert premium editorial image prompt engineer for high-end Indian commodity market news creatives.
+
+Your job is to generate ONE complete, detailed, production-ready image-generation prompt.
+
+IMPORTANT:
+You must NOT return a short generic prompt.
+You must NOT return only a cinematic background description.
+You must strictly follow the required NewsMarkets24 output structure.
+
+FINAL PROMPT MUST INCLUDE ALL OF THESE PARTS:
+
+--------------------------------------------------
+PART 1 — VISUAL BACKGROUND
+--------------------------------------------------
+Write a detailed premium visual instruction in English:
+- cinematic
+- photorealistic
+- editorial financial-news style
+- relevant to the news topic
+- strong foreground, midground, background depth
+- realistic commodity / mandi / agri / industrial setting
+- premium dramatic lighting
+- modern, high-end composition
+- visually engaging, not boring
+
+--------------------------------------------------
+PART 2 — HEADER BRANDING
+--------------------------------------------------
+Include clear instruction for top header:
+- Top-left: ${b.logoBase64 ? 'use uploaded logo faithfully' : (logoDesc ? `Logo: ${logoDesc}` : `Text logo: "${brandName}"`)}
+- Top-center:
+  "${brandName}"
+  and below it smaller tagline:
+  "India's No.1 Commodity Market Intelligence"
+- Top-right: current date
+
+--------------------------------------------------
+PART 3 — DIAGONAL WATERMARK
+--------------------------------------------------
+Include instruction for a large diagonal watermark across the image:
+- text: "NewsMarkets24 Network"
+- semi-transparent
+- premium
+- subtle but visible
+- newsroom style
+
+--------------------------------------------------
+PART 4 — TEXT CONTENT STRUCTURE (STRICT)
+--------------------------------------------------
+
+The final image content must follow this exact bilingual paired format:
+
+Hindi Headline
+English Headline
+
+मुख्य अपडेट / Key Update
+- Hindi point
+- English point
+- Hindi point
+- English point
+(2 to 4 pairs)
+
+बाजार पर प्रभाव / Market Impact
+- Hindi point
+- English point
+- Hindi point
+- English point
+(2 to 4 pairs)
+
+बाजार का रुख / Market Tone
+- Hindi line
+- English line
+
+CRITICAL:
+- Do NOT mix Hindi and English in one sentence
+- Do NOT make one section Hindi-only and another English-only
+- Every important point must appear as a Hindi-English pair
+- Keep content concise, editorial, readable, and premium
+
+--------------------------------------------------
+PART 5 — FOOTER
+--------------------------------------------------
+Footer must be larger, bolder, and more eye-catching.
+Use premium hierarchy.
+
+Include:
+- social icons and handle: icons for ${platforms} labeled "${socialHandle}"
+- contact numbers: ${phone1} | ${phone2}
+- website: ${b.website || 'www.newsmarkets24.com'}
+- stronger visibility than before
+
+--------------------------------------------------
+PART 6 — CTA
+--------------------------------------------------
+Include this CTA clearly in the footer zone:
+
+Hindi:
+"अगर आप भी मार्केट की हर खबर और तेजी-मंदी से अपडेट रहना चाहते हैं, तो अभी सर्विस लें।"
+
+English:
+"If you want to stay updated with every market move, news, and bullish-bearish trend, take the service now."
+
+Then:
+"Call or Message: ${phone1} | ${phone2}"
+
+CTA must be visually highlighted, premium, and clearly separated.
+
+--------------------------------------------------
+PART 7 — OUTPUT QUALITY
+--------------------------------------------------
+The final response must be a COMPLETE image-generation prompt.
+It must be detailed and usable directly.
+It must not be tiny.
+It must not be vague.
+It must not skip sections.
+It must feel like a production-ready prompt for a premium NewsMarkets24 visual.
+
+Return ONLY the final image-generation prompt. No explanation. No intro. No quotation marks.`;
+
+    const finalRes = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' + apiKey, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ role: 'user', parts: userParts }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
+        contents: [{ role: 'user', parts: [{ text: "Content to process:\n\n" + finalSourceContent }] }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
       })
     });
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || 'API error ' + res.status);
+    if (!finalRes.ok) {
+      const err = await finalRes.json();
+      throw new Error(err.error?.message || 'Final API error ' + finalRes.status);
     }
 
-    const data = await res.json();
-    const result = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const finalData = await finalRes.json();
+    const result = finalData.candidates?.[0]?.content?.parts?.[0]?.text || '';
     if (!result) throw new Error('Empty response from model');
 
     document.getElementById('output-text').textContent = result.trim();
