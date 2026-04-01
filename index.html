@@ -586,6 +586,10 @@ async function generatePrompt() {
 
     setStatus('AI prompt bana raha hai...', 'loading');
     
+    // Date Logic Injection
+    const formattingOptions = { day: '2-digit', month: 'short', year: 'numeric' };
+    const currentDate = new Date().toLocaleDateString('en-IN', formattingOptions);
+
     const systemPrompt = `You are an expert premium editorial image prompt engineer for high-end Indian commodity market news creatives.
 
 Generate ONE complete, production-ready image-generation prompt.
@@ -623,16 +627,16 @@ Top-center:
 "${brandName}"
 Below it smaller tagline:
 "India's No.1 Commodity Market Intelligence"
-Top-right: current date
+Top-right: exactly the date "${currentDate}"
 
 --------------------------------------------------
 WATERMARK
 --------------------------------------------------
-Add a large premium diagonal watermark across the image:
+Add a premium cross-style diagonal watermark effect ( \\ / ) across the image:
 "NewsMarkets24 Network"
-semi-transparent
-subtle but clearly visible
-professional newsroom style
+semi-transparent, slightly more visible (increase opacity by 1-2 points)
+subtle, elegant, clearly visible cross-diagonal feel
+professional newsroom style that does not disturb readability
 
 --------------------------------------------------
 MAIN CONTENT STRUCTURE (STRICT)
